@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Калькулятор</string>
+    <string name="enter_int_number">введите целое число</string>
+    <string name="add">сложить</string>
+</resources>
