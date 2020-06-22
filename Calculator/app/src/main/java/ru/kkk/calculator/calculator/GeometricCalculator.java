@@ -1,11 +1,30 @@
 package ru.kkk.calculator.calculator;
 
-import ru.kkk.calculator.interfaces.ICalculator;
+public class GeometricCalculator {
 
-public class GeometricCalculator implements ICalculator {
+    public Double startCalculate(int[] args, Function function) {
+        Double result = null;
+        switch (function) {
+            case TRIANGLE_SQUARE:
+                result = getTriangleSquare(args);
+                break;
+            case RECTANGLE_SQUARE:
+                result = getRectangleSquare(args);
+                break;
+        }
+        return result;
+    }
 
-    @Override
-    public Double startCalculate(String expression) {
-        return null;
+    private Double getRectangleSquare(int[] args) {
+        return (double) (args[0] * args[1]);
+    }
+
+    private Double getTriangleSquare(int[] args) {
+        return 0.5 * args[0] * args[1];
+    }
+
+    public enum Function {
+        TRIANGLE_SQUARE,
+        RECTANGLE_SQUARE
     }
 }

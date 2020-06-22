@@ -5,11 +5,9 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ru.kkk.calculator.interfaces.ICalculator;
 
-public class ArithmeticCalculator implements ICalculator {
+public class ArithmeticCalculator {
 
-    @Override
     public Double startCalculate(String expression) {
         if (expression == null) return null;
         if (expression.isEmpty()) return null;

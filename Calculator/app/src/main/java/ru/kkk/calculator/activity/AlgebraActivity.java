@@ -118,7 +118,7 @@ public class AlgebraActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
+        inflater.inflate(R.menu.arithmetic_tb_menu, menu);
         menu.findItem(R.id.geometry_type).setOnMenuItemClickListener(this);
         return true;
     }

@@ -27,4 +27,6 @@
     <string name="left_parenthesis">(</string>
     <string name="right_parenthesis">)</string>
     <string name="item_title">Geometry</string>
+    <string name="algebra">Algebra</string>
+    <string name="nan">NaN</string>
 </resources>
