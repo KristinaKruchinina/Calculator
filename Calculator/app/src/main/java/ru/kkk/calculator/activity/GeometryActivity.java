@@ -2,7 +2,6 @@ package ru.kkk.calculator.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,8 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Arrays;
-
 import ru.kkk.calculator.R;
 import ru.kkk.calculator.calculator.GeometricCalculator;
 import ru.kkk.calculator.interfaces.IConstants;
@@ -22,12 +19,11 @@ public class GeometryActivity extends AppCompatActivity
         implements MenuItem.OnMenuItemClickListener, IConstants {
 
     private String[] funcData;
-    private int[] numberData;
+    private Integer[] numberData;
     private String currentNumber;
     private TextView data;
     private TextView result;
     private int currentID;
-    private GeometricCalculator geometricCalculator;
     private GeometricCalculator.Function currentFunction;
 
 
@@ -38,10 +34,9 @@ public class GeometryActivity extends AppCompatActivity
         data = findViewById(R.id.data);
         result = findViewById(R.id.result);
         funcData = new String[0];
-        numberData = new int[0];
+        numberData = new Integer[0];
         currentID = 0;
         currentNumber = "";
-        geometricCalculator = new GeometricCalculator();
     }
 
     @Override
@@ -62,30 +57,38 @@ public class GeometryActivity extends AppCompatActivity
 
 
     public void clear(View view) {
+        if (data.getText().length() == 0) return;
+        if (currentNumber.isEmpty()) return;
         currentNumber = currentNumber.substring(0, currentNumber.length() - 1);
-        numberData[currentID] = Integer.parseInt(currentNumber);
-        String inputData = String.format(funcData[currentID], currentNumber);
-        String[] arrayCurrentData = data.getText().toString().split(";");
-        arrayCurrentData[currentID] = inputData.replace(";", "");
-        data.setText(getNewData(arrayCurrentData));
+        if (currentNumber.equals("")) {
+            numberData[currentID] = null;
+        } else {
+            numberData[currentID] = Integer.parseInt(currentNumber);
+        }
+        setNewData();
 
     }
 
     public void getResult(View view) {
-        Log.d("d", Arrays.toString(numberData));
-        Double res = geometricCalculator.startCalculate(numberData, currentFunction);
+        if (numberData.length == 0) return;
+        Double res = GeometricCalculator.startCalculate(numberData, currentFunction);
         result.setText(String.valueOf(res));
 
     }
 
     public void onNumberClick(View view) {
+        if (funcData.length == 0) return;
         currentNumber += ((Button) view).getText().toString();
         numberData[currentID] = Integer.parseInt(currentNumber);
+        setNewData();
+
+    }
+
+    private void setNewData() {
         String inputData = String.format(funcData[currentID], currentNumber);
         String[] arrayCurrentData = data.getText().toString().split(";");
         arrayCurrentData[currentID] = inputData.replace(";", "");
         data.setText(getNewData(arrayCurrentData));
-
     }
 
     private String getNewData(String[] arrayCurrentData) {
@@ -100,9 +103,12 @@ public class GeometryActivity extends AppCompatActivity
     public void clearData(View view) {
         data.setText("");
         result.setText("");
+        funcData = new String[0];
+        numberData = new Integer[0];
     }
 
     public void onNextData(View view) {
+        if (funcData.length == 0) return;
         currentNumber = "";
         if (currentID == funcData.length - 1) {
             currentID = 0;
@@ -115,7 +121,7 @@ public class GeometryActivity extends AppCompatActivity
         String initInputData = String.format(TRIANGLE_INPUT_DATA, "", "");
         data.setText(initInputData);
         funcData = new String[2];
-        numberData = new int[2];
+        numberData = new Integer[2];
         funcData[0] = FOUNDATION;
         funcData[1] = HEIGHT;
         currentFunction = GeometricCalculator.Function.TRIANGLE_SQUARE;
@@ -125,7 +131,7 @@ public class GeometryActivity extends AppCompatActivity
         String initInputData = String.format(RECTANGLE_INPUT_DATA, "", "");
         data.setText(initInputData);
         funcData = new String[2];
-        numberData = new int[2];
+        numberData = new Integer[2];
         funcData[0] = SIDE_A;
         funcData[1] = SIDE_B;
         currentFunction = GeometricCalculator.Function.RECTANGLE_SQUARE;
