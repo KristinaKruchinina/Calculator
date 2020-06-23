@@ -1,9 +1,10 @@
 package ru.kkk.calculator.interfaces;
 
+import java.util.regex.Pattern;
+
 public interface IConstants {
-    String[] signs = {"+", "-", "/", "*", "^"};
-    String[] trig = {"sin(", "cos(", "tg(", "asin(",
-            "acos(", "atg("};
+    Pattern SIGN_PATTERN = Pattern.compile("[-+/*^]");
+    Pattern TRIG_PATTERN = Pattern.compile("(sin|cos|tg|asin|acos|atg)(\\()");
     String ERROR = "Ошибка";
     String SIDE_A = "сторона a = %s;";
     String SIDE_B = " сторона b = %s";
