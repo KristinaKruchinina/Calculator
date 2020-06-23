@@ -1,10 +1,7 @@
 package ru.kkk.calculator.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,17 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
-import ru.kkk.calculator.calculator.ArithmeticCalculator;
 import ru.kkk.calculator.R;
+import ru.kkk.calculator.calculator.ArithmeticCalculator;
 import ru.kkk.calculator.interfaces.IConstants;
 
 public class AlgebraActivity extends AppCompatActivity
         implements MenuItem.OnMenuItemClickListener, IConstants {
     private TextView expr;
     private TextView result;
-    private ArithmeticCalculator calculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,6 @@ public class AlgebraActivity extends AppCompatActivity
         setContentView(R.layout.activity_algebra);
         expr = findViewById(R.id.expression);
         result = findViewById(R.id.result);
-        calculator = new ArithmeticCalculator();
     }
 
     public void onNumberClick(View view) {
@@ -44,15 +41,8 @@ public class AlgebraActivity extends AppCompatActivity
         if (exprData.isEmpty()) {
             return;
         }
-        String[] dataArray = exprData.split(" ");
-        String sign = dataArray[dataArray.length - 1];
-        Log.d("sign", sign);
-        for (String s : signs) {
-            if (sign.equals(s)) return;
-        }
-        for (String t : trig) {
-            if (sign.equals(t)) return;
-        }
+        if (SIGN_PATTERN.matcher(exprData).find()) return;
+        if (TRIG_PATTERN.matcher(exprData).find()) return;
         String newExprData = exprData + " " + ((Button) view).getText() + " ";
         expr.setText(newExprData);
     }
@@ -73,7 +63,7 @@ public class AlgebraActivity extends AppCompatActivity
 
     public void getResult(View view) {
         try {
-            Double result = calculator.startCalculate(expr.getText().toString());
+            Double result = ArithmeticCalculator.startCalculate(expr.getText().toString());
             if (result == null) this.result.setText(ERROR);
             else this.result.setText(String.valueOf(result));
         } catch (Exception e) {
@@ -105,12 +95,7 @@ public class AlgebraActivity extends AppCompatActivity
 
     public void onTrigClick(View view) {
         String exprData = expr.getText().toString();
-        String[] arrData = exprData.split(" ");
-        for (String t : trig) {
-            if (arrData[0].equals(t)) {
-                return;
-            }
-        }
+        if (TRIG_PATTERN.matcher(exprData).find()) return;
         String newExprData = exprData + ((Button) view).getText() + "(";
         expr.setText(newExprData);
     }
