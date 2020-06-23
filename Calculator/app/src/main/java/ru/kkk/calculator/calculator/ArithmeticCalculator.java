@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class ArithmeticCalculator {
 
-    public Double startCalculate(String expression) {
+    public static Double startCalculate(String expression) {
         if (expression == null) return null;
         if (expression.isEmpty()) return null;
         if (expression.equals("()")) return null;
@@ -42,7 +42,7 @@ public class ArithmeticCalculator {
         return result;
     }
 
-    private String startTrigCalc(String expression) {
+    private static String startTrigCalc(String expression) {
         expression = calcAsin(expression);
         expression = calcAcos(expression);
         expression = calcATG(expression);
@@ -52,7 +52,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private String calcATG(String expression) {
+    private static String calcATG(String expression) {
         double result;
         String replacement;
         Pattern pattern = Pattern.compile("(?<=atg\\().+?(?=\\))");
@@ -65,7 +65,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private String calcAcos(String expression) {
+    private static String calcAcos(String expression) {
         double result;
         String replacement;
         Pattern pattern = Pattern.compile("(?<=acos\\().+?(?=\\))");
@@ -78,7 +78,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private String calcAsin(String expression) {
+    private static String calcAsin(String expression) {
         double result;
         String replacement;
         Pattern pattern = Pattern.compile("(?<=asin\\().+?(?=\\))");
@@ -91,7 +91,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private String calcTG(String expression) {
+    private static String calcTG(String expression) {
         double result;
         String replacement;
         Pattern pattern = Pattern.compile("(?<=tg\\().+?(?=\\))");
@@ -104,7 +104,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private String calcCos(String expression) {
+    private static String calcCos(String expression) {
         double result;
         String replacement;
         Pattern pattern = Pattern.compile("(?<=cos\\().+?(?=\\))");
@@ -117,7 +117,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private String calcSin(String expression) {
+    private static String calcSin(String expression) {
         double result;
         String replacement;
         Pattern pattern = Pattern.compile("(?<=sin\\().+?(?=\\))");
@@ -130,7 +130,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private String startParenthesisCalc(String expression) {
+    private static String startParenthesisCalc(String expression) {
         Double result;
         Pattern pattern = Pattern.compile("(?<=\\().+?(?=\\))");
         Matcher matcher = pattern.matcher(expression);
@@ -145,7 +145,7 @@ public class ArithmeticCalculator {
         return expression;
     }
 
-    private int getSignIndex(ArrayList<String> listData) {
+    private static int getSignIndex(ArrayList<String> listData) {
         int index;
         index = listData.indexOf("^");
         if (index != -1) return index;
@@ -167,7 +167,7 @@ public class ArithmeticCalculator {
         return -1;
     }
 
-    private void startArithmeticCalc(ArrayList<String> listData, int index) {
+    private static void startArithmeticCalc(ArrayList<String> listData, int index) {
         double first = Double.parseDouble(listData.get(index - 1));
         double second = Double.parseDouble(listData.get(index + 1));
         String sign = listData.get(index);
@@ -179,7 +179,7 @@ public class ArithmeticCalculator {
     }
 
 
-    private Double calculate(double first, double second, String sign) {
+    private static Double calculate(double first, double second, String sign) {
         Double result = null;
         switch (sign) {
             case "+":

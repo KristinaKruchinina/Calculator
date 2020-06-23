@@ -2,7 +2,7 @@ package ru.kkk.calculator.calculator;
 
 public class GeometricCalculator {
 
-    public Double startCalculate(int[] args, Function function) {
+    public static Double startCalculate(Integer[] args, Function function) {
         Double result = null;
         switch (function) {
             case TRIANGLE_SQUARE:
@@ -15,11 +15,11 @@ public class GeometricCalculator {
         return result;
     }
 
-    private Double getRectangleSquare(int[] args) {
+    private static Double getRectangleSquare(Integer[] args) {
         return (double) (args[0] * args[1]);
     }
 
-    private Double getTriangleSquare(int[] args) {
+    private static Double getTriangleSquare(Integer[] args) {
         return 0.5 * args[0] * args[1];
     }
 
