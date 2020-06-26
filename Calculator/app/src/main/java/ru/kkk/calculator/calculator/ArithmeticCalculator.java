@@ -5,9 +5,20 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Класс, выполнящий функцию алгебраического калькулятора
+ * для решения математических выражений
+ *
+ * @author Кручинина Кристина17ИТ17
+ */
 public class ArithmeticCalculator {
-
+    /**
+     * Метод, запускающий цепочку действий, приводящие к постепенному
+     * решению алгебраического выражения
+     *
+     * @param expression алгебраическое выражение
+     * @return результат вычислений
+     */
     public static Double startCalculate(String expression) {
         if (expression == null) return null;
         if (expression.isEmpty()) return null;
@@ -42,6 +53,13 @@ public class ArithmeticCalculator {
         return result;
     }
 
+    /**
+     * Метод, который вызывает цепочку действий для
+     * вычисления результатов тригонометрических функций выражения
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String startTrigCalc(String expression) {
         expression = calcAsin(expression);
         expression = calcAcos(expression);
@@ -52,6 +70,13 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который ищет в выражении все арктангенсы, производит вычисления и
+     * обновляет математическое выражение в строковом виде.
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String calcATG(String expression) {
         double result;
         String replacement;
@@ -65,6 +90,13 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который ищет в выражении все арккосинусы производит вычисления и
+     * обновляет математическое выражение в строковом виде.
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String calcAcos(String expression) {
         double result;
         String replacement;
@@ -78,6 +110,13 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который ищет в выражении все арксинусы, производит вычисления и
+     * обновляет математическое выражение в строковом виде.
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String calcAsin(String expression) {
         double result;
         String replacement;
@@ -91,6 +130,13 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который ищет в выражении все тангенсы, производит вычисления и
+     * обновляет математическое выражение в строковом виде.
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String calcTG(String expression) {
         double result;
         String replacement;
@@ -104,6 +150,13 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который ищет в выражении все косинусы, производит вычисления и
+     * обновляет математическое выражение в строковом виде.
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String calcCos(String expression) {
         double result;
         String replacement;
@@ -117,6 +170,13 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который ищет в выражении все синусы, производит вычисления и
+     * обновляет математическое выражение в строковом виде.
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String calcSin(String expression) {
         double result;
         String replacement;
@@ -130,6 +190,13 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который ищет в выражении все скобки, производит вычисления
+     * выражения в скобках и обновляет математическое выражение в строковом виде.
+     *
+     * @param expression математическое выражение
+     * @return обновленное математическое выражение в строковм виде
+     */
     private static String startParenthesisCalc(String expression) {
         Double result;
         Pattern pattern = Pattern.compile("(?<=\\().+?(?=\\))");
@@ -145,6 +212,14 @@ public class ArithmeticCalculator {
         return expression;
     }
 
+    /**
+     * Метод, который возвращает индекс знака операции,
+     * в зависимости от позиции знака в массиве или самого знака
+     *
+     * @param listData массив данных
+     * @return индекс знака ^, если имеется, или *, если его позиция впередви всех или /,
+     * если также его позиция впереди всех
+     */
     private static int getSignIndex(ArrayList<String> listData) {
         int index;
         index = listData.indexOf("^");
@@ -167,6 +242,13 @@ public class ArithmeticCalculator {
         return -1;
     }
 
+    /**
+     * Метод, который производит арифметический расчет выражения
+     * относительно математических правил (к примеру первым происходит умножение, деление)
+     *
+     * @param listData массив данных
+     * @param index    индекс знака операции
+     */
     private static void startArithmeticCalc(ArrayList<String> listData, int index) {
         double first = Double.parseDouble(listData.get(index - 1));
         double second = Double.parseDouble(listData.get(index + 1));
@@ -178,7 +260,15 @@ public class ArithmeticCalculator {
         listData.add(index - 1, result.toString());
     }
 
-
+    /**
+     * Метод, который производит расчет простого выражения, состоящего из
+     * знака операции и двух чисел
+     *
+     * @param first  первое число
+     * @param second второе число
+     * @param sign   знак операции
+     * @return результат вычисления
+     */
     private static Double calculate(double first, double second, String sign) {
         Double result = null;
         switch (sign) {
