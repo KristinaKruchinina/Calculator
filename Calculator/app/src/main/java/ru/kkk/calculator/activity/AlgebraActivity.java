@@ -55,8 +55,10 @@ public class AlgebraActivity extends AppCompatActivity
         if (exprData.isEmpty()) {
             return;
         }
-        if (SIGN_PATTERN.matcher(exprData).find()) return;
-        if (TRIG_PATTERN.matcher(exprData).find()) return;
+        String[] exprArray = exprData.split(" ");
+        String last = exprArray[exprArray.length - 1];
+        if (last.matches(SIGN_PATTERN)) return;
+        if (last.matches(TRIG_PATTERN)) return;
         String newExprData = exprData + " " + ((Button) view).getText() + " ";
         expr.setText(newExprData);
     }
@@ -145,7 +147,9 @@ public class AlgebraActivity extends AppCompatActivity
      */
     public void onTrigClick(View view) {
         String exprData = expr.getText().toString();
-        if (TRIG_PATTERN.matcher(exprData).find()) return;
+        String[] exprArray = exprData.split(" ");
+        String last = exprArray[exprArray.length - 1];
+        if (last.matches(TRIG_PATTERN)) return;
         String newExprData = exprData + ((Button) view).getText() + "(";
         expr.setText(newExprData);
     }

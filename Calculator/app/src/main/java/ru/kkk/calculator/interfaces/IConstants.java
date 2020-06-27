@@ -1,15 +1,13 @@
 package ru.kkk.calculator.interfaces;
 
-import java.util.regex.Pattern;
-
 /**
  * Интерфейс, содержащий строковые константы
  *
  * @author Кручинина Кристина 17ИТ17
  */
 public interface IConstants {
-    Pattern SIGN_PATTERN = Pattern.compile("[-+/*^]");
-    Pattern TRIG_PATTERN = Pattern.compile("(sin|cos|tg|asin|acos|atg)(\\()");
+    String SIGN_PATTERN = "[-+/*^]";
+    String TRIG_PATTERN = "(\\(?)(sin|cos|tg|asin|acos|atg)(\\(\\d?)";
     String ERROR = "Ошибка";
     String SIDE_A = "сторона a = %s;";
     String SIDE_B = " сторона b = %s";
